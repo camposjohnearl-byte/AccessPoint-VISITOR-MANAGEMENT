@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1220">
+  <meta name="description" content="A visitor registration and access logging portal.">
+  <title>Visitor Access Portal</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="AccessPoint home">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+        <span class="brand-copy"><strong>AccessPoint</strong><small>VISITOR MANAGEMENT</small></span>
+      </a>
+      <div class="header-right">
+        <div class="live-time" aria-label="Current local date and time">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span><strong id="clock">--:--:-- --</strong><small id="current-date">Loading date…</small></span>
+        </div>
+        <div class="admin-avatar" aria-label="Administrator">A</div>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <section class="welcome-row" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">OVERVIEW <span>/</span> VISITOR LOG</p>
+          <h1 id="page-title">Visitor access</h1>
+          <p class="page-subtitle">Manage today's arrivals and keep your building moving.</p>
+        </div>
+        <div class="today-chip"><span class="calendar-icon" aria-hidden="true">▦</span><span id="today-label">Today</span></div>
+      </section>
+
+      <section class="stats-grid" aria-label="Today's visitor statistics">
+        <article class="stat-card">
+          <div class="stat-top"><span class="stat-label">Total visitors today</span><span class="stat-icon icon-indigo" aria-hidden="true">↗</span></div>
+          <div class="stat-bottom"><strong id="stat-total">0</strong><span class="stat-note">registered today</span></div>
+          <span class="stat-accent accent-indigo" aria-hidden="true"></span>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span class="stat-label">Currently checked in</span><span class="stat-icon icon-green" aria-hidden="true">●</span></div>
+          <div class="stat-bottom"><strong id="stat-active">0</strong><span class="stat-note"><span class="status-dot"></span> inside the building</span></div>
+          <span class="stat-accent accent-green" aria-hidden="true"></span>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span class="stat-label">Total checked out</span><span class="stat-icon icon-muted" aria-hidden="true">✓</span></div>
+          <div class="stat-bottom"><strong id="stat-out">0</strong><span class="stat-note">completed visits today</span></div>
+          <span class="stat-accent accent-muted" aria-hidden="true"></span>
+        </article>
+      </section>
+
+      <div class="workspace-grid">
+        <section class="panel registration-panel" aria-labelledby="registration-title">
+          <div class="panel-heading">
+            <div class="heading-icon heading-indigo" aria-hidden="true">＋</div>
+            <div><h2 id="registration-title">Register a visitor</h2><p>Enter visitor details to create an access pass.</p></div>
+          </div>
+          <form id="visitor-form" novalidate>
+            <div class="form-grid">
+              <div class="field field-full">
+                <label for="visitor-name">Full name <span class="required">*</span></label>
+                <input id="visitor-name" name="name" type="text" placeholder="e.g. Jordan Lee" autocomplete="name" maxlength="100" aria-describedby="name-error" required>
+                <span class="field-error" id="name-error"></span>
+              </div>
+              <div class="field field-full">
+                <label for="visitor-contact">Contact number or email <span class="required">*</span></label>
+                <input id="visitor-contact" name="contact" type="text" placeholder="e.g. jordan@email.com or +1 555 0123" autocomplete="email" maxlength="150" aria-describedby="contact-error" required>
+                <span class="field-error" id="contact-error"></span>
+              </div>
+              <div class="field">
+                <label for="visitor-purpose">Purpose of visit</label>
+                <select id="visitor-purpose" name="purpose">
+                  <option>Business Meeting</option><option>Delivery</option><option>Interview</option>
+                  <option>Event Guest</option><option>Personal Visit</option><option>Other</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="visitor-id-type">ID type offered</label>
+                <select id="visitor-id-type" name="idType">
+                  <option>Government ID</option><option>Student ID</option><option>Company Badge</option>
+                  <option>Passport</option><option>Other</option>
+                </select>
+              </div>
+              <div class="field field-full">
+                <label for="visitor-host">Host person / department <span class="required">*</span></label>
+                <input id="visitor-host" name="host" type="text" placeholder="e.g. Morgan Chen · Product" maxlength="120" aria-describedby="host-error" required>
+                <span class="field-error" id="host-error"></span>
+              </div>
+            </div>
+            <button class="button button-primary submit-button" type="submit"><span aria-hidden="true">＋</span> Register &amp; check in</button>
+            <p class="form-footnote"><span aria-hidden="true">◈</span> A unique visitor pass will be generated automatically.</p>
+          </form>
+        </section>
+
+        <section class="panel monitor-panel" aria-labelledby="monitor-title">
+          <div class="monitor-heading">
+            <div class="panel-heading">
+              <div class="heading-icon heading-green" aria-hidden="true">⌁</div>
+              <div><h2 id="monitor-title">Visitor monitor</h2><p>Live access activity and visitor records.</p></div>
+            </div>
+            <span class="live-pill"><span class="status-dot"></span> LIVE</span>
+          </div>
+
+          <div class="quick-checkout">
+            <div class="quick-copy"><span class="quick-icon" aria-hidden="true">↘</span><span><strong>Quick check-out</strong><small>Enter a pass code to check out a visitor.</small></span></div>
+            <form class="quick-form" id="quick-checkout-form">
+              <label class="sr-only" for="quick-code">Visitor access pass code</label>
+              <input id="quick-code" type="text" placeholder="e.g. PASS-849201" maxlength="11" autocomplete="off">
+              <button class="button button-dark" type="submit">Check out</button>
+            </form>
+            <p id="quick-message" class="quick-message" role="status" aria-live="polite"></p>
+          </div>
+
+          <div class="toolbar">
+            <label class="search-box"><span aria-hidden="true">⌕</span><span class="sr-only">Search visitors</span><input id="visitor-search" type="search" placeholder="Search name, pass code, host…"></label>
+            <label class="sr-only" for="status-filter">Filter visitor status</label>
+            <select id="status-filter" class="status-filter">
+              <option value="all">All visitors</option><option value="in">Currently checked in</option><option value="out">Checked out</option>
+            </select>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead><tr>
+                <th scope="col">VISITOR</th><th scope="col">PURPOSE / HOST</th><th scope="col">CHECK-IN</th>
+                <th scope="col">CHECK-OUT</th><th scope="col">STATUS</th><th scope="col"><span class="sr-only">Actions</span></th>
+              </tr></thead>
+              <tbody id="visitor-table-body"></tbody>
+            </table>
+            <div id="empty-state" class="empty-state" hidden>
+              <span class="empty-icon" aria-hidden="true">⌕</span><strong>No visitors found</strong><span>Try another search or adjust your filter.</span>
+            </div>
+          </div>
+          <div class="table-footer">
+            <span id="result-count">Showing 0 visitors</span>
+            <button class="text-button" id="reset-demo" type="button">↻ Reset demo data</button>
+          </div>
+        </section>
+      </div>
+
+      <div id="storage-warning" class="storage-warning" role="alert" hidden></div>
+      <footer class="page-footer"><span>AccessPoint <span aria-hidden="true">·</span> Visitor access, made simple.</span><span>Visitor records are stored on this device.</span></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="badge-modal" hidden>
+    <section class="badge-dialog" role="dialog" aria-modal="true" aria-labelledby="badge-title">
+      <button class="modal-close" id="modal-x" type="button" aria-label="Close visitor pass">×</button>
+      <div class="badge-card" id="printable-badge">
+        <div class="badge-brand"><span class="brand-mark brand-mark-small" aria-hidden="true"><span></span><span></span><span></span><span></span></span><span><strong>ACCESSPOINT</strong><small>VISITOR ACCESS</small></span></div>
+        <div class="badge-banner"><span>VISITOR PASS</span><span class="badge-valid"><span class="status-dot"></span> ACTIVE</span></div>
+        <div class="badge-visitor"><span class="badge-avatar" id="badge-initials">VL</span><div><span class="badge-caption">VISITOR</span><h2 id="badge-name">Visitor Name</h2><p id="badge-purpose">Business Meeting</p></div></div>
+        <div class="badge-details"><div><span>HOST</span><strong id="badge-host">Host name</strong></div><div><span>CHECKED IN</span><strong id="badge-time">—</strong></div></div>
+        <div class="badge-code-area"><div><span class="badge-caption">ACCESS PASS CODE</span><strong id="badge-code">PASS-000000</strong></div><canvas id="badge-qr" width="96" height="96" aria-label="Decorative visual code pattern; not a scannable QR code"></canvas></div>
+        <p class="badge-footer">Please keep this pass visible while on-site.</p>
+      </div>
+      <div class="badge-actions"><button class="button button-secondary" id="print-badge" type="button">▣ &nbsp;Print badge</button><button class="button button-primary" id="close-badge" type="button">Done</button></div>
+      <h2 class="sr-only" id="badge-title">Visitor access pass</h2>
+    </section>
+  </div>
+  <div id="live-announcement" class="sr-only" aria-live="polite"></div>
+</body>
+</html>
