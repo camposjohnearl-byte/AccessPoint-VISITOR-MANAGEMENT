@@ -1,6 +1,6 @@
 # Run website:
 
-# [Click here](https://camposjohnearl-byte.github.io/AccessPoint-VISITOR-MANAGEMENT/#)
+## [Click here](https://camposjohnearl-byte.github.io/AccessPoint-VISITOR-MANAGEMENT/#)
 
 AccessPoint: Visitor Management System
 
