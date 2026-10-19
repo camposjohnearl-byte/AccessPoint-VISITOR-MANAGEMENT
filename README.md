@@ -1,3 +1,7 @@
+# Run website:
+
+# [Click here](https://camposjohnearl-byte.github.io/AccessPoint-VISITOR-MANAGEMENT/#)
+
 AccessPoint: Visitor Management System
 
 A robust, web-based Visitor Management System (VMS) engineered to streamline entry processes, monitor guest traffic, enhance campus/facility security, and maintain accurate digital logs. Designed with scalability and ease of use in mind, this application replaces traditional paper logbooks with an efficient, centralized digital registry.
